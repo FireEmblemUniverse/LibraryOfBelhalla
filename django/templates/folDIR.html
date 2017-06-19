@@ -1,0 +1,61 @@
+{% load staticfiles %}
+{% load dirhelpers %}
+
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="screen, projection" type="text/css"
+    href="{% static "css/dirListing.css" %}">
+  <script language="JavaScript" src="{% static "js/dirListing.js" %}"></script>
+<link rel="icon" type="image/png" href="{% static "img/favicon.ico" %}">
+<title>Index of Cam's Notes</title></head>
+<body dir="ltr">
+<h1>Index of Cam's Notes</h1>
+<p id="UI_goUp">
+  <img src="{% static "img/up.png" %}" alt="Top:">
+  <a href="{% url "notes" path="" %}">top</a>
+  <br />
+  <img src="{% static "img/up.png" %}" alt="Up:">
+  <a href="{% url "notes" path=prev %}">..</a>
+</p>
+<p id="UI_showHidden" style="display:none"><label><input checked="checked" onchange="updateHidden()" type="checkbox">Show hidden objects</label></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th colspan="2">Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in dirs %}
+  {% if not obj.slink %}
+  <tr>
+    <td sortable-data={{ obj.iname }}><a class="file"
+      href="{% url "notes" path=obj.path %}">
+      <img src="{% static "img/folder.png" %}" alt="Folder:">
+      {{ obj.name }}
+    </a></td>
+    <td sortable-data="0"></td>
+    <td sortable-data="{{ obj.last_mod }}">{{ obj.last_mod|date:"Y-m-d" }}</td>
+    <td>{{ obj.last_mod|time:"H:i" }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+  {% for obj in files %}
+  {% if not obj.slink %}
+  <tr>
+    <td sortable-data={{ obj.iname }}><a class="file"
+      href="{% static dirroot|pathjoin:obj.path %}">
+      <img src="{% static "img/file.png" %}" alt="Folder:">
+      {{ obj.name }}
+    </a></td>
+    <td sortable-data="1">{{ obj.size|filesizeformat }}</td>
+    <td sortable-data="{{ obj.last_mod }}">{{ obj.last_mod|date:"Y-m-d" }}</td>
+    <td>{{ obj.last_mod|time:"H:i" }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+</body></html>

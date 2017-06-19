@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+user="$1"
+name="$2"
+echo "Initializing documentation directory for $user"
+cd /home/git
+mkdir $user
+
+# Setup the user's directory for pushes
+echo "Initializing serverside git repo..."
+cd $user
+mkdir doc.git
+cd doc.git
+git init --bare
+echo "Bare tree initialized. Remote is git@doc.feuniverse.us:$user/doc.git"
+
+# Add subtree to main display repo
+echo "Adding $user's doc repository as a subtree"
+cd /home/www/files
+git remote add $user-doc /home/$user/doc.git
+git subtree add --prefix=$name/ $user-doc master
+
+echo "Successfully initialized! Please refer to USERS.md for further instructions."
+

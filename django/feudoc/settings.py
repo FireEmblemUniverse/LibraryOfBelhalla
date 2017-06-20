@@ -26,7 +26,7 @@ SECRET_KEY = local_settings.secret
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = local_settings.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1', 'doc.feuniverse.us' ]
 
 
 # Application definition
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'feudoc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [local_settings.PROJECT_ROOT + '/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/www/files/'
+STATIC_ROOT = local_settings.STATIC_ROOT
 NOTES_DIR = local_settings.NOTES_DIR
 

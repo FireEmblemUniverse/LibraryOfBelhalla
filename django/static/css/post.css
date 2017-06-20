@@ -1,0 +1,9 @@
+.comment {
+    text-indent: 30px;
+}
+
+/* I wish I knew why I had to do this */
+/* I've given up on making the time and the author align to the bottom */
+.comment-data > h4 {
+    margin-bottom: -8px;
+}

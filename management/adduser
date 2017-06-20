@@ -16,7 +16,7 @@ echo "Bare tree initialized. Remote is git@doc.feuniverse.us:$user/doc.git"
 
 # Add subtree to main display repo
 echo "Adding $user's doc repository as a subtree"
-cd /home/www/files
+cd /home/django/files
 git remote add $user-doc /home/$user/doc.git
 git subtree add --prefix=$name/ $user-doc master
 

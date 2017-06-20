@@ -5,20 +5,19 @@
 <html><head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="screen, projection" type="text/css"
-    href="{% static "css/dirListing.css" %}">
-  <script language="JavaScript" src="{% static "js/dirListing.js" %}"></script>
-<link rel="icon" type="image/png" href="{% static "img/favicon.ico" %}">
+    href="{% static "web/css/dirListing.css" %}">
+  <script language="JavaScript" src="{% static "web/js/dirListing.js" %}"></script>
+<link rel="icon" type="image/png" href="{% static "web/img/favicon.ico" %}">
 <title>Index of {{ place }}</title></head>
 <body dir="ltr">
-<h1>Index of Cam's Notes</h1>
+<h1>Index of {{ place }}</h1>
 <p id="UI_goUp">
-  <img src="{% static "img/up.png" %}" alt="Top:">
+  <img src="{% static "web/img/up.png" %}" alt="Top:">
   <a href="{% url "notes" path="" %}">top</a>
   <br />
-  <img src="{% static "img/up.png" %}" alt="Up:">
+  <img src="{% static "web/img/up.png" %}" alt="Up:">
   <a href="{% url "notes" path=prev %}">..</a>
 </p>
-<p id="UI_showHidden" style="display:none"><label><input checked="checked" onchange="updateHidden()" type="checkbox">Show hidden objects</label></p>
 <table>
   <thead>
     <tr>
@@ -33,7 +32,7 @@
   <tr>
     <td sortable-data={{ obj.iname }}><a class="file"
       href="{% url "notes" path=obj.path %}">
-      <img src="{% static "img/folder.png" %}" alt="Folder:">
+      <img src="{% static "web/img/folder.png" %}" alt="Folder:">
       {{ obj.name }}
     </a></td>
     <td sortable-data="0"></td>
@@ -47,7 +46,7 @@
   <tr>
     <td sortable-data={{ obj.iname }}><a class="file"
       href="{% static dirroot|pathjoin:obj.path %}">
-      <img src="{% static "img/file.png" %}" alt="Folder:">
+      <img src="{% static "web/img/file.png" %}" alt="Folder:">
       {{ obj.name }}
     </a></td>
     <td sortable-data="1">{{ obj.size|filesizeformat }}</td>

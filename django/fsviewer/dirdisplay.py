@@ -1,5 +1,6 @@
 import os
 import datetime
+import pathlib
 
 from django.conf import settings
 from django.shortcuts import render, render_to_response
@@ -20,6 +21,9 @@ class FileData(object):
 def display_dir(root):
     static_root = os.path.relpath(root, settings.STATIC_ROOT)
     def display_dir_inner(request, path):
+        p = pathlib.Path(path)
+        if len(p.parts) > 1: place = "%s's Notes"
+        else: place = "Library of Belhalla"
         files = []
         dirs = []
         fullpath = os.path.join(root, path)
@@ -36,7 +40,8 @@ def display_dir(root):
             # relative path, we make it easy for our url processor to isolate
             # the information it needs to.
             'prev' : os.path.dirname(path),
-            'dirroot' : static_root
+            'dirroot' : static_root,
+            'place' : place
         })
     return display_dir_inner
 

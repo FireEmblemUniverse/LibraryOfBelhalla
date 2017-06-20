@@ -20,5 +20,5 @@ from django.contrib import admin
 from fsviewer import views
 
 urlpatterns = [
-    url('^(?P<path>)', views.display_dir(settings.NOTES_DIR), name='notes')
+    url('^(?P<path>.*)', views.display_dir(settings.NOTES_DIR), name='notes')
 ]

@@ -18,20 +18,14 @@ class FileData(object):
         self.last_mod = datetime.datetime.fromtimestamp(stats.st_mtime)
 
 def display_dir(root):
-    if settings.DEBUG:
-        static_root = os.path.relpath(
-            root,
-            max(filter(
-                lambda s:root.startswith(s), settings.STATICFILES_DIRS
-            ), key=len)
-        )
-    else:
-        static_root = os.path.relpath(root, settings.STATIC_ROOT)
+    static_root = os.path.relpath(root, settings.STATIC_ROOT)
     def display_dir_inner(request, path):
         files = []
         dirs = []
         fullpath = os.path.join(root, path)
         for obj in os.scandir(fullpath):
+            # ignore private files (dotfiles/folders)
+            if obj.name[0] == '.': continue
             fileobj = FileData(path, obj)
             if obj.is_dir(follow_symlinks=False): dirs.append(fileobj)
             else: files.append(fileobj)

@@ -19,7 +19,7 @@ echo "    RW+ = $user cam" >> conf/gitolite.conf
 
 git add conf keydir
 git commit -m "update repository to add $user"
-git push origin master
+gitolite push
 
 belhalla init $user "REPOS_DIR/doc_$user"
 

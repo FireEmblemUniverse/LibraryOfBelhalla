@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Please ensure the runner of this script has write permissions to the dir
 # specified by GITOLITE_ADMIN_DIR

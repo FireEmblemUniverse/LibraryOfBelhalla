@@ -4,8 +4,8 @@
 # specified by GITOLITE_ADMIN_DIR
 
 # Change these to match your install
-GITOLITE_ADMIN_DIR="/home/git/gitolite-admin"
-REPOS_DIR="/home/git/repositories"
+GITOLITE_ADMIN_DIR="/home/bot/gitolite-admin"
+GIT_URL="git@localhost"
 
 user="$1"
 keyfile="$2"
@@ -19,7 +19,7 @@ echo "    RW+ = $user cam" >> conf/gitolite.conf
 
 git add conf keydir
 git commit -m "update repository to add $user"
-gitolite push
+git push
 
-belhalla init $user "REPOS_DIR/doc_$user"
+belhalla init $user "$GIT_URL:doc_$user"
 

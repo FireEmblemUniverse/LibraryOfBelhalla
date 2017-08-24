@@ -4,7 +4,7 @@ import sys, os
 import atexit
 import tempfile as tf
 
-PIPE_DIR = '/etc/belhalla'
+PIPE_DIR = '/var/belhalla'
 
 def do_pull(user):
     cwd = os.getcwd()

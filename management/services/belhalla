@@ -1,9 +1,13 @@
 #!/bin/bash
 
-if [ -z $BELHALLA_PIPE ] ; then
-  echo "Please set BELHALLA_PIPE as according to the readme."
+PIPE_LOC="/etc/belhalla"
+
+if [ ! -e PIPE_LOC ]; then
+  echo "No pipe location found! Please see README.txt"
   exit 1
 fi
+
+BELHALLA_PIPE=$(cat PIPE_LOC)
 
 if [ ! -e $BELHALLA_PIPE ]; then
   echo "Belhalla service not running!"

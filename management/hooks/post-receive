@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This is kind of nasty and I would strongly recommend making this less fragile
+DOC_OWNER=$(basename $(pwd) | cut -c5-)
+
+PIPE_LOC='/etc/belhalla'
+if [ ! -e $PIPE_LOC ]; then
+  exit 1
+fi
+
+PIPE=$(cat $PIPE_LOC)
+if [ ! -e $PIPE_LOC ]; then
+  exit 2
+fi
+
+belhalla refresh DOC_OWNER
+

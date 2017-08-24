@@ -4,6 +4,8 @@ import sys, os
 import atexit
 import tempfile as tf
 
+PIPE_DIR = '/etc/belhalla'
+
 def do_pull(user):
     cwd = os.getcwd()
     os.chdir(os.path.join(cwd, user))
@@ -29,6 +31,8 @@ def belhalla(pipe):
     FIFO = pipe
     os.mkfifo(pipe)
 
+    with open(PIPE_LOC, 'w') as f: f.write(FIFO)
+
     for line in notify_loop():
         process(line)
 
@@ -45,6 +49,7 @@ def notify_loop(fname=None):
 def clean():
     try:
         os.unlink(FIFO)
+        os.remove(PIPE_LOC)
     except:
         # Can't do anything about this
         pass

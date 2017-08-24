@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z $BELHALLA_PIPE ] ; then
+  echo "Please set BELHALLA_PIPE as according to the readme."
+  exit 1
+fi
+
+if [ ! -e $BELHALLA_PIPE ]; then
+  echo "Belhalla service not running!"
+  exit 2
+fi
+
+echo "$@" > $BELHALLA_PIPE
+

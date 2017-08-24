@@ -1,24 +1,22 @@
 #!/usr/bin/bash
 
+# Please ensure the runner of this script has write permissions to the dir
+# specified by GITOLITE_ADMIN_DIR
+
+# Change these to match your install
+GITOLITE_ADMIN_DIR="/home/git/gitolite-admin"
+
 user="$1"
-name="$2"
-echo "Initializing documentation directory for $user"
-cd /home/git
-mkdir $user
+keyfile="$2"
 
-# Setup the user's directory for pushes
-echo "Initializing serverside git repo..."
-cd $user
-mkdir doc.git
-cd doc.git
-git init --bare
-echo "Bare tree initialized. Remote is git@doc.feuniverse.us:$user/doc.git"
+# Create the gitolite repo
+cd $GITOLITE_ADMIN_DIR
+cp $keyfile keydir/$user.pub
 
-# Add subtree to main display repo
-echo "Adding $user's doc repository as a subtree"
-cd /home/django/files
-git remote add $user-doc /home/$user/doc.git
-git subtree add --prefix=$name/ $user-doc master
+echo "repo doc_$user" >> conf/gitolite.conf
+echo "    RW+ = $user cam" >> conf/gitolite.conf
 
-echo "Successfully initialized! Please refer to USERS.md for further instructions."
+git add conf keydir
+git commit -m "update repository to add $user"
+git push origin master
 
